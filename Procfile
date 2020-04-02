@@ -1,2 +1,1 @@
-web: voila —-port=$PORT —-no-browser notebooks/SIRD_interactive.ipynb
-
+web: voila —-port=$PORT --no-browser
