@@ -2,7 +2,7 @@
  "cells": [
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -18,27 +18,21 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### SIRD-Modell Corona\n",
-    "Die Simulation berechnet den Verlauf der Epidemie je nach Wert der Anfangsparameter nach den Differentialgleichungen des SIRD-Modells\n",
+    "# SIRD-Modell Corona\n",
+    "Die Simulation berechnet den Verlauf der Epidemie je nach Wert der Anfangsparameter:\n",
     "<ul>\n",
     "    <li> $S_0$ Anzahl der Nichtinfizierte am Anfang der Epidemie </li>\n",
     "    <li> $I_0$ Anzahl der Infizierte am Anfang der Epidemie. Beachte $S_0 +I_0 \\leq 1$ </li>\n",
     "    <li> K Durchschnittliche Anzahl der Kontakte pro Tag</li>\n",
-<<<<<<< HEAD
-    "    <li> $\\tau$ Wahrscheinlichkeit der Ansteckungen pro Kontakt, bei Corona $\\tau\\approx 0,1$ </li>\n",
-    "    <li> $\\delta$ Anteil der Infizierten, die sterben, bei Corona $\\delta\\approx 0,01$ (Zahl extrem unsicher) </li>\n",
-    "    <li> $G$ Durchschnittliche Anzahl Tage bis zur Genesung G$\\approx$ 14</li>\n",
-=======
     "    <li> $\\tau$ Rate der Ansteckungen pro Kontakt, bei Corona $\\tau\\approx 0,1$ </li>\n",
-    "    <li> $\\delta$ Anteil der Infizierten, die sterben, bei Corona $\\delta\\approx 0,01$ (Zahl extrem unsicher!) </li>\n",
-    "    <li> Tage $G$ Tage bis zur Genesung, bei Corona $G \\approx 14$ </li>\n",
->>>>>>> c9293bf31b38f37c4235178f64f62b230089bafc
+    "    <li> $\\delta$ Anteil der Infizierten, die sterben, bei Corona $\\gamma\\approx 0,01$ ?? </li>\n",
+    "    <li> Tage $G$ Tage bis zur Genesung</li>\n",
     "</ul>"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -55,13 +49,13 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 4,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
      "data": {
       "application/vnd.jupyter.widget-view+json": {
-       "model_id": "7e124b2d8caf4d2ab7c4bb7a32bb1897",
+       "model_id": "f5abe0c312824e118316adf1bc566cf4",
        "version_major": 2,
        "version_minor": 0
       },
@@ -78,7 +72,7 @@
        "<function __main__.my_func(S0, I0, K, tau, day, delta)>"
       ]
      },
-     "execution_count": 4,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -90,7 +84,7 @@
     "D0 = 0.0\n",
     "beta = 0.35 # durschnittliche Kontaktzahl*Transmissionsrate\n",
     "gamma = 1/14 # Recovery rate = 1/Infektionsdauer\n",
-    "delta = 0.01 # Todesrate\n",
+    "delta = 0.01\n",
     "\n",
     "def my_func(S0, I0, K,tau, day, delta):\n",
     "    D0 = 0.0\n",
@@ -103,7 +97,7 @@
     "    # Result\n",
     "    solution = scipy.integrate.odeint(SIRD_model, [S0,I0,R0,D0], t, args=(beta, gamma, delta))\n",
     "    # Plot results\n",
-    "    plt.figure(figsize=[12,8])\n",
+    "    plt.figure(figsize=[15,10])\n",
     "    plt.plot(t,solution[:,0], label=\"S(t) Anteil der Nichtinfizierten (susceptible)\")\n",
     "    plt.plot(t,solution[:,1], label=\"I(t) Anteil der Infizierten\")\n",
     "    plt.plot(t,solution[:,2], label=\"R(t) Anteil der Genesenen (Recovered)\")\n",
@@ -122,11 +116,7 @@
     "         S0 = widgets.FloatSlider(value = 0.9, min = 0, max = 1.0, step = 0.05, description = \"S0\"),\n",
     "         K = widgets.FloatSlider(value = 3, min = 0, max = 15, step = 0.25, description = \"Kontakte\"),\n",
     "         tau = widgets.FloatSlider(value = 0.1, min = 0, max = 1.0, step = 0.05, description = '\\N{greek small letter tau}'),\n",
-<<<<<<< HEAD
     "         day = widgets.FloatSlider(value = 10, min = 0, max = 20, step = 1, description = \"Tage G\"),\n",
-=======
-    "         day = widgets.FloatSlider(value = 14, min = 0, max = 20, step = 1, description = \"Tage G\"),\n",
->>>>>>> c9293bf31b38f37c4235178f64f62b230089bafc
     "         delta = widgets.FloatSlider(value = 0.01, min = 0, max = 0.2, step = 0.01, description ='\\N{greek small letter delta}'))\n",
     "\n"
    ]
