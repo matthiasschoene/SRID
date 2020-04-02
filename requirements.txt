@@ -1,6 +1,2 @@
 voila
 voila-material
-scipy.integrate
-numpy
-matplotlib.pyplot
-ipywidgets
